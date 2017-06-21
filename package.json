@@ -1,0 +1,75 @@
+{
+  "name": "github-repo-manager-with-react",
+  "version": "0.0.0",
+  "author": "3846masa <3846masahiro+git@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/3846masa/github-repo-manager-with-react/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.0",
+    "redux-actions": "^2.0.3",
+    "semantic-ui-react": "^0.70.0"
+  },
+  "devDependencies": {
+    "@types/react": "^15.0.30",
+    "@types/react-dom": "^15.5.0",
+    "@types/react-redux": "^4.4.43",
+    "@types/redux-actions": "^1.2.6",
+    "commitizen": "^2.9.6",
+    "cross-env": "^5.0.1",
+    "cz-conventional-changelog": "^2.0.0",
+    "fixpack": "^2.3.1",
+    "fuse-box": "^2.1.0",
+    "husky": "^0.13.4",
+    "lint-staged": "^4.0.0",
+    "npm-run-all": "^4.0.2",
+    "postcss-modules": "^0.8.0",
+    "prettier": "^1.5.2",
+    "rimraf": "^2.6.1",
+    "tslint": "^5.4.3",
+    "tslint-config-airbnb": "^5.2.0",
+    "tslint-react": "^3.0.0",
+    "typescript": "^2.3.4",
+    "uglify-es": "^3.0.18"
+  },
+  "homepage": "https://github.com/3846masa/github-repo-manager-with-react#readme",
+  "license": "MIT",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "npm run lint:prettier",
+      "npm run lint:tslint",
+      "git add"
+    ],
+    "package.json": [
+      "npm run lint:fixpack",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/3846masa/github-repo-manager-with-react.git"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=\"production\" node ./fuse.js",
+    "clean": "rimraf dist",
+    "clean:deep": "rimraf dist .fusebox",
+    "cz": "git-cz",
+    "lint": "npm-run-all lint:fixpack lint:prettier lint:tslint",
+    "lint:fixpack": "fixpack",
+    "lint:prettier": "prettier --single-quote --trailing-comma all --write \"src/**/*.{ts,tsx}\"",
+    "lint:tslint": "tslint -c tslint.json --force \"src/scripts/index.tsx\"",
+    "prebuild": "npm-run-all clean lint",
+    "precommit": "lint-staged",
+    "prewatch": "npm-run-all clean",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "cross-env NODE_ENV=\"development\" node ./fuse.js"
+  }
+}
