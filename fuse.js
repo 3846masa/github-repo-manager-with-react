@@ -2,6 +2,7 @@ const {
   FuseBox,
   CSSModules,
   CSSPlugin,
+  JSONPlugin,
   TypeScriptHelpers,
   WebIndexPlugin,
   UglifyESPlugin,
@@ -14,6 +15,7 @@ const fuse = FuseBox.init({
   tsConfig: 'tsconfig.json',
   plugins: [
     TypeScriptHelpers(),
+    JSONPlugin(),
     [
       CSSModules({
         useDefault: false,
