@@ -69,7 +69,7 @@
     "lint": "npm-run-all lint:fixpack lint:prettier lint:tslint",
     "lint:fixpack": "fixpack",
     "lint:prettier": "prettier --single-quote --trailing-comma all --write \"src/**/*.{ts,tsx}\"",
-    "lint:tslint": "tslint -c tslint.json --force \"src/scripts/index.tsx\"",
+    "lint:tslint": "tslint -c tslint.json --force \"src/**/*.{ts,tsx}\"",
     "prebuild": "npm-run-all clean lint",
     "precommit": "lint-staged",
     "prewatch": "npm-run-all clean",
