@@ -1,0 +1,1 @@
+export const SYSTEM_LAUNCH_APP = 'SYSTEM_LAUNCH_APP';
