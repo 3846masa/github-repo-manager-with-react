@@ -1,8 +1,9 @@
-import { delay } from 'redux-saga';
+import { delay, Task } from 'redux-saga';
 import {
   takeEvery,
   takeLatest,
   call,
+  cancel,
   select,
   throttle,
   put,
@@ -11,11 +12,12 @@ import {
   CallEffect,
   PutEffect,
   SelectEffect,
+  CancelEffect,
 } from 'redux-saga/effects';
 import * as Types from '~/actions/actionTypes';
 import * as Actions from '~/actions/actions';
 import * as API from '~/utils/API';
-export { ForkEffect, CallEffect, PutEffect, SelectEffect };
+export { ForkEffect, CallEffect, PutEffect, SelectEffect, CancelEffect };
 
 export const getQuery = (state: any) => state.searchQuery;
 export const getSubscriptions = (state: any) => state.subscriptions.repos;
@@ -34,7 +36,13 @@ export function* initialize() {
   yield put(Actions.setSubscriptions(reposWithProps));
 }
 
+let searchTask: Task | null = null;
+
 export function* searchRepos(action: any) {
+  if (searchTask) {
+    yield cancel(searchTask);
+  }
+
   yield put(Actions.startSearching());
   const query = {
     ...yield select(getQuery),
@@ -65,13 +73,17 @@ export function* searchRepos(action: any) {
   );
 }
 
+export function* searchReposFromQuery(action: any) {
+  searchTask = yield fork(searchRepos, action);
+}
+
 export function* searchReposNext() {
   const page = (yield select(getSearchResultsPage)) + 1;
   const query = {
     ...yield select(getQuery),
     page,
   };
-  yield fork(searchRepos, { payload: query });
+  searchTask = yield fork(searchRepos, { payload: query });
 }
 
 export function* searchReposPrev() {
@@ -80,7 +92,7 @@ export function* searchReposPrev() {
     ...yield select(getQuery),
     page,
   };
-  yield fork(searchRepos, { payload: query });
+  searchTask = yield fork(searchRepos, { payload: query });
 }
 
 export function* changeWatchStatus(action: any) {
@@ -110,8 +122,8 @@ export function* changeWatchStatus(action: any) {
 }
 
 export function* saga() {
-  yield takeEvery(Types.SYSTEM_LAUNCH_APP, initialize);
-  yield throttle(2000, Types.USER_CHANGE_QUERY, searchRepos);
+  yield takeLatest(Types.SYSTEM_LAUNCH_APP, initialize);
+  yield throttle(2000, Types.USER_CHANGE_QUERY, searchReposFromQuery);
   yield takeLatest(Types.USER_CLICK_SEARCH_RESULTS_PREV, searchReposPrev);
   yield takeLatest(Types.USER_CLICK_SEARCH_RESULTS_NEXT, searchReposNext);
   yield takeEvery(Types.USER_CHANGE_WATCH_STATUS, changeWatchStatus);
