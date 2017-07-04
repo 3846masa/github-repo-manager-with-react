@@ -70,6 +70,14 @@ export const searchResultsReducers = handleActions<
         ...action.payload,
       },
     }),
+    [Types.REDUCER_START_CHANGING_ALL_WATCH_STATUS]: state => ({
+      ...state,
+      loading: true,
+    }),
+    [Types.REDUCER_DONE_CHANGING_ALL_WATCH_STATUS]: state => ({
+      ...state,
+      loading: false,
+    }),
   },
   initialState,
 );

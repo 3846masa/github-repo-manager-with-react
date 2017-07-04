@@ -8,16 +8,25 @@ import {
   throttle,
   put,
   fork,
+  join,
   ForkEffect,
   CallEffect,
   PutEffect,
   SelectEffect,
   CancelEffect,
+  JoinEffect,
 } from 'redux-saga/effects';
 import * as Types from '~/actions/actionTypes';
 import * as Actions from '~/actions/actions';
 import * as API from '~/utils/API';
-export { ForkEffect, CallEffect, PutEffect, SelectEffect, CancelEffect };
+export {
+  ForkEffect,
+  CallEffect,
+  PutEffect,
+  SelectEffect,
+  CancelEffect,
+  JoinEffect,
+};
 
 export const getQuery = (state: any) => state.searchQuery;
 export const getSubscriptions = (state: any) => state.subscriptions.repos;
@@ -121,10 +130,41 @@ export function* changeWatchStatus(action: any) {
   }
 }
 
+export function* changeAllWatchStatusInPage(isSubscribed: boolean) {
+  yield put(Actions.startChangingAllWatchStatus());
+
+  const repos = (yield select(getSearchResults)).filter(
+    (r: any) => r.isSubscribed !== isSubscribed,
+  );
+  for (let idx = 0; idx < repos.length; idx += 1) {
+    const repo = repos[idx];
+    const task = yield fork(changeWatchStatus, {
+      payload: {
+        isSubscribed,
+        id: repo.id,
+        full_name: repo.full_name,
+      },
+    });
+    yield join(task);
+  }
+
+  yield put(Actions.doneChangingAllWatchStatus());
+}
+
 export function* saga() {
   yield takeLatest(Types.SYSTEM_LAUNCH_APP, initialize);
   yield throttle(1000, Types.USER_CHANGE_QUERY, searchReposFromQuery);
   yield takeLatest(Types.USER_CLICK_SEARCH_RESULTS_PREV, searchReposPrev);
   yield takeLatest(Types.USER_CLICK_SEARCH_RESULTS_NEXT, searchReposNext);
   yield takeEvery(Types.USER_CHANGE_WATCH_STATUS, changeWatchStatus);
+  yield takeLatest(
+    Types.USER_CLICK_ALL_WATCH_IN_PAGE,
+    changeAllWatchStatusInPage,
+    true,
+  );
+  yield takeLatest(
+    Types.USER_CLICK_ALL_UNWATCH_IN_PAGE,
+    changeAllWatchStatusInPage,
+    false,
+  );
 }

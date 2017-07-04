@@ -32,6 +32,16 @@ export class SearchResults extends React.Component<
     this.props.actions.clickSearchResultsNext();
   }
 
+  @autobind
+  handleClickAllWatchInPage() {
+    this.props.actions.clickAllWatchInPage();
+  }
+
+  @autobind
+  handleClickAllUnwatchInPage() {
+    this.props.actions.clickAllUnwatchInPage();
+  }
+
   render() {
     return (
       <Grid.Column stretched>
@@ -51,10 +61,20 @@ export class SearchResults extends React.Component<
             onClickNext={this.handleClickNext}
             {...this.props.pagenation}
           />
-          <Button floated="right" color="red">
+          <Button
+            onClick={this.handleClickAllUnwatchInPage}
+            disabled={this.props.loading}
+            floated="right"
+            color="red"
+          >
             Unwatch all in this page
           </Button>
-          <Button floated="right" color="blue">
+          <Button
+            onClick={this.handleClickAllWatchInPage}
+            disabled={this.props.loading}
+            floated="right"
+            color="blue"
+          >
             Watch all in this page
           </Button>
         </Segment>

@@ -10,6 +10,13 @@ export interface ChangeStatusQuery {
 
 export const launchApp = createAction(Types.SYSTEM_LAUNCH_APP);
 
+export const clickAllWatchInPage = createAction(
+  Types.USER_CLICK_ALL_WATCH_IN_PAGE,
+);
+export const clickAllUnwatchInPage = createAction(
+  Types.USER_CLICK_ALL_UNWATCH_IN_PAGE,
+);
+
 export const clickSubscriptionsPrev = createAction(
   Types.USER_CLICK_SUBSCRIPTIONS_PREV,
 );
@@ -66,4 +73,11 @@ export const addSubscription = createAction<any, any>(
 export const setSearchResultsPagenation = createAction<any, any>(
   Types.REDUCER_SET_SEARCH_RESULTS_PAGENATION,
   page => page,
+);
+
+export const startChangingAllWatchStatus = createAction(
+  Types.REDUCER_START_CHANGING_ALL_WATCH_STATUS,
+);
+export const doneChangingAllWatchStatus = createAction(
+  Types.REDUCER_DONE_CHANGING_ALL_WATCH_STATUS,
 );
