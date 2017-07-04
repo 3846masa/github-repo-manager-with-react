@@ -101,7 +101,12 @@ export function* changeWatchStatus(action: any) {
       isSubscribed: 'unknown',
     }),
   );
-  yield call(API.setWatchState, { ...action.payload });
+
+  yield call(API.setWatchState, {
+    fullName: action.payload.full_name,
+    isSubscribed: action.payload.isSubscribed,
+  });
+
   yield put(
     Actions.setWatchStatus({
       ...payload,

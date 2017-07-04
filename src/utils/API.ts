@@ -62,6 +62,18 @@ export async function searchRepositories(query: any) {
   };
 }
 
-export async function setWatchState() {
-  return;
+export async function setWatchState({
+  fullName,
+  isSubscribed,
+}: {
+  fullName: string;
+  isSubscribed: boolean;
+}) {
+  if (isSubscribed) {
+    await axios.put(`/repos/${fullName}/subscription`, {
+      subscribed: true,
+    });
+  } else {
+    await axios.delete(`/repos/${fullName}/subscription`);
+  }
 }
