@@ -12,6 +12,8 @@ import {
   Dimmer,
   Loader,
 } from 'semantic-ui-react';
+import { RepoCard } from '~/components/RepoCard';
+
 import * as mockResult from '~/mocks/searchResult.json';
 import * as mockSubscriptions from '~/mocks/subscriptions.json';
 
@@ -151,35 +153,7 @@ export class App extends React.Component<{}, AppState> {
               }}
             >
               {this.state.results.map(repo =>
-                <Card key={repo.id}>
-                  <Card.Content>
-                    <Card.Header>
-                      <Label attached="top right">
-                        {repo.language}
-                      </Label>
-                      <a href={repo.html_url} style={{ color: 'inherit' }}>
-                        {repo.name}
-                      </a>
-                    </Card.Header>
-                    <Card.Meta>
-                      <a
-                        href={repo.owner.html_url}
-                        style={{ color: 'inherit' }}
-                      >
-                        @{repo.owner.login}
-                      </a>
-                    </Card.Meta>
-                    <Card.Description style={{ wordBreak: 'break-all' }}>
-                      {repo.description}
-                    </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <Button fluid color="blue">
-                      <Icon name="eye" />
-                      Watch
-                    </Button>
-                  </Card.Content>
-                </Card>,
+                <RepoCard key={repo.id} {...repo} />,
               )}
             </Card.Group>
           </Segment>
@@ -213,35 +187,7 @@ export class App extends React.Component<{}, AppState> {
           >
             <Card.Group itemsPerRow="1" style={{ margin: '0' }}>
               {this.state.subscriptions.map(repo =>
-                <Card key={repo.id}>
-                  <Card.Content>
-                    <Card.Header>
-                      <Label attached="top right">
-                        {repo.language}
-                      </Label>
-                      <a href={repo.html_url} style={{ color: 'inherit' }}>
-                        {repo.name}
-                      </a>
-                    </Card.Header>
-                    <Card.Meta>
-                      <a
-                        href={repo.owner.html_url}
-                        style={{ color: 'inherit' }}
-                      >
-                        @{repo.owner.login}
-                      </a>
-                    </Card.Meta>
-                    <Card.Description style={{ wordBreak: 'break-all' }}>
-                      {repo.description}
-                    </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <Button fluid color="red">
-                      <Icon name="dont" />
-                      Unwatch
-                    </Button>
-                  </Card.Content>
-                </Card>,
+                <RepoCard key={repo.id} {...repo} />,
               )}
             </Card.Group>
           </Segment>
