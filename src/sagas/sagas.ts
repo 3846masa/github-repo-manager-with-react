@@ -1,4 +1,4 @@
-import { delay, Task } from 'redux-saga';
+import { Task } from 'redux-saga';
 import {
   takeEvery,
   takeLatest,
@@ -26,8 +26,6 @@ export const getSearchResultsPage = (state: any) =>
   state.searchResults.pagenation.page;
 
 export function* initialize() {
-  // Fetch subscriptions (mock)
-  yield delay(1000);
   const repos = yield call(API.fetchSubscriptions);
   const reposWithProps = repos.map((r: any) => ({
     ...r,
@@ -50,7 +48,6 @@ export function* searchRepos(action: any) {
   };
   const subscriptions = yield select(getSubscriptions);
 
-  // Search repositories (mock)
   const { lastPage, items: repos } = yield call(API.searchRepositories, query);
 
   const reposWithProps = repos.map((r: any) => {
@@ -104,8 +101,6 @@ export function* changeWatchStatus(action: any) {
       isSubscripted: 'unknown',
     }),
   );
-  // Fetch subscriptions (mock)
-  yield delay(1000);
   yield call(API.setWatchState, { ...action.payload });
   yield put(
     Actions.setWatchStatus({
