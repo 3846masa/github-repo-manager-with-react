@@ -25,4 +25,21 @@ const initialState: SearchResultsState = {
 export const searchResultsReducers = handleActions<
   SearchResultsState,
   SearchResultsPayload
->({}, initialState);
+>(
+  {
+    [Types.USER_CHANGE_QUERY]: state => ({
+      ...state,
+      loading: true,
+    }),
+    [Types.REDUCER_START_SEARCHING]: state => ({
+      ...state,
+      loading: true,
+    }),
+    [Types.REDUCER_SET_SEARCH_RESULTS]: (state, action) => ({
+      ...state,
+      repos: [...action.payload],
+      loading: false,
+    }),
+  },
+  initialState,
+);

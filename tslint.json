@@ -1,9 +1,7 @@
 {
-  "extends": [
-    "tslint-react",
-    "tslint-config-airbnb"
-  ],
+  "extends": ["tslint-react", "tslint-config-airbnb"],
   "rules": {
+    "ter-arrow-parens": [true, "as-needed"],
     "import-name": false,
     "jsx-boolean-value": false,
     "jsx-no-lambda": false,

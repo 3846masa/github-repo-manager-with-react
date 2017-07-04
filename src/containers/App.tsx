@@ -24,7 +24,11 @@ class AppContainer extends React.Component<AppProps, undefined> {
         <Dimmer active={subscriptions.loading}>
           <Loader>Initialize...</Loader>
         </Dimmer>
-        <SearchColumn widthSize={3} {...searchResults} />
+        <SearchColumn
+          widthSize={3}
+          actions={this.props.actions}
+          {...searchResults}
+        />
         <WatchedReposColumn widthSize={1} {...subscriptions} />
       </Grid>
     );

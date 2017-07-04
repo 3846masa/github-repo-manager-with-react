@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Accordion, Icon, Form } from 'semantic-ui-react';
+import * as Actions from '~/actions/actions';
+import autobind from 'autobind-decorator';
 
 const SORT_OPTIONS = [
   {
@@ -66,14 +68,28 @@ const LANGUAGE_LIST = [
 ];
 
 export interface SearchFormProps {
-  onChange?: (ev: any) => void;
+  actions: typeof Actions;
 }
 
 export class SearchForm extends React.Component<SearchFormProps, undefined> {
+  @autobind
+  handleChange(ev: React.SyntheticEvent<any>, data: any) {
+    const { name, value } = data;
+    this.props.actions.changeQuery({
+      [name]: value,
+    });
+  }
+
   render() {
     return (
       <Form>
-        <Form.Input icon="search" iconPosition="left" placeholder="Search" />
+        <Form.Input
+          icon="search"
+          iconPosition="left"
+          placeholder="Search"
+          name="query"
+          onChange={this.handleChange}
+        />
         <Accordion fluid>
           <Accordion.Title>
             <Icon name="dropdown" />
@@ -85,11 +101,15 @@ export class SearchForm extends React.Component<SearchFormProps, undefined> {
                 label="Sort options"
                 options={SORT_OPTIONS}
                 defaultValue="best_match"
+                name="sort"
+                onChange={this.handleChange}
               />
               <Form.Select
                 label="Language"
                 options={LANGUAGE_LIST}
                 defaultValue="any"
+                name="language"
+                onChange={this.handleChange}
               />
             </Form.Group>
           </Accordion.Content>

@@ -3,18 +3,30 @@ import * as Types from '~/actions/actionTypes';
 
 export interface SearchQueryState {
   query: string;
-  order: '' | 'stars' | 'forks' | 'updated';
+  sort: '' | 'stars' | 'forks' | 'updated';
   language: string;
 }
-type SearchQueryPayload = any;
+export interface SearchQueryPayload {
+  query?: string;
+  sort?: '' | 'stars' | 'forks' | 'updated';
+  language?: string;
+}
 
 const initialState: SearchQueryState = {
   query: '',
-  order: '',
+  sort: '',
   language: '',
 };
 
 export const searchQueryReducers = handleActions<
   SearchQueryState,
   SearchQueryPayload
->({}, initialState);
+>(
+  {
+    [Types.USER_CHANGE_QUERY]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+  },
+  initialState,
+);
