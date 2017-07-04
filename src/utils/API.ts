@@ -52,9 +52,11 @@ export async function searchRepositories(query: any) {
   });
   const link = parseLinkHeader(headers['link']);
 
+  const lastPage =
+    link && link.last ? parseInt(link.last.page, 10) : query.page || 1;
   return {
     items: data.items,
-    lastPage: link && link.last ? parseInt(link.last.page, 10) : query.page,
+    lastPage,
   };
 }
 
