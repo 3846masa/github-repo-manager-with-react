@@ -131,7 +131,7 @@ export class App extends React.Component<{}, AppState> {
     };
   }
 
-  getSubscriptonsInPage(page) {
+  getSubscriptonsInPage(page: number) {
     return this.state.subscriptions.repos.slice((page - 1) * 30, page * 30);
   }
 
