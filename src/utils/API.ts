@@ -26,7 +26,9 @@ export async function fetchSubscriptions() {
       break;
     }
   }
-  return subscriptions;
+  return subscriptions.sort(
+    (a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime(),
+  );
 }
 
 export async function searchRepositories(query: any) {
