@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Grid, Button, Segment, Dimmer, Loader } from 'semantic-ui-react';
+import autobind from 'autobind-decorator';
 import { RepoList } from '~/components/RepoList';
 import { Pagenation } from '~/components/Pagenation';
 
@@ -21,6 +22,16 @@ export class SearchResults extends React.Component<
   SearchResultsProps,
   undefined
 > {
+  @autobind
+  handleClickPrev() {
+    this.props.actions.clickSearchResultsPrev();
+  }
+
+  @autobind
+  handleClickNext() {
+    this.props.actions.clickSearchResultsNext();
+  }
+
   render() {
     return (
       <Grid.Column stretched>
@@ -35,7 +46,11 @@ export class SearchResults extends React.Component<
           />
         </Segment>
         <Segment vertical style={{ flexGrow: '0' }}>
-          <Pagenation {...this.props.pagenation} />
+          <Pagenation
+            onClickPrev={this.handleClickPrev}
+            onClickNext={this.handleClickNext}
+            {...this.props.pagenation}
+          />
           <Button floated="right" color="red">
             Unwatch all in this page
           </Button>

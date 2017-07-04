@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
+import autobind from 'autobind-decorator';
 import { RepoList } from '~/components/RepoList';
 import { Pagenation } from '~/components/Pagenation';
 
@@ -20,6 +21,16 @@ export class WatchedReposColumn extends React.Component<
   WatchedReposColumnProps,
   undefined
 > {
+  @autobind
+  handleClickPrev() {
+    this.props.actions.clickSubscriptionsPrev();
+  }
+
+  @autobind
+  handleClickNext() {
+    this.props.actions.clickSubscriptionsNext();
+  }
+
   getSubscriptonsInPage() {
     const page = this.props.pagenation.page;
     return this.props.repos.slice((page - 1) * 30, page * 30);
@@ -39,7 +50,11 @@ export class WatchedReposColumn extends React.Component<
           />
         </Segment>
         <Segment vertical textAlign="center" style={{ flexGrow: '0' }}>
-          <Pagenation {...this.props.pagenation} />
+          <Pagenation
+            onClickPrev={this.handleClickPrev}
+            onClickNext={this.handleClickNext}
+            {...this.props.pagenation}
+          />
         </Segment>
       </Grid.Column>
     );

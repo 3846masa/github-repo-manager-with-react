@@ -10,6 +10,19 @@ export interface ChangeStatusQuery {
 
 export const launchApp = createAction(Types.SYSTEM_LAUNCH_APP);
 
+export const clickSubscriptionsPrev = createAction(
+  Types.USER_CLICK_SUBSCRIPTIONS_PREV,
+);
+export const clickSubscriptionsNext = createAction(
+  Types.USER_CLICK_SUBSCRIPTIONS_NEXT,
+);
+export const clickSearchResultsPrev = createAction(
+  Types.USER_CLICK_SEARCH_RESULTS_PREV,
+);
+export const clickSearchResultsNext = createAction(
+  Types.USER_CLICK_SEARCH_RESULTS_NEXT,
+);
+
 export const changeQuery = createAction<
   SearchQueryPayload,
   any
@@ -48,4 +61,9 @@ export const setWatchStatus = createAction<
 export const addSubscription = createAction<any, any>(
   Types.REDUCER_ADD_SUBSCRIPTION,
   repo => repo,
+);
+
+export const setSearchResultsPagenation = createAction<any, any>(
+  Types.REDUCER_SET_SEARCH_RESULTS_PAGENATION,
+  page => page,
 );

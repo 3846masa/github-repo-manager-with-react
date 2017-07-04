@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Icon, Button, Label } from 'semantic-ui-react';
 
 export interface PagenationProps {
-  onClickPrev?: (ev: any) => void;
-  onClickNext?: (ev: any) => void;
+  onClickPrev: (...args: any[]) => any;
+  onClickNext: (...args: any[]) => any;
   page: number;
   isFirstPage: boolean;
   isLastPage: boolean;

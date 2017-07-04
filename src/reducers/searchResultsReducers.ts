@@ -41,8 +41,6 @@ export const searchResultsReducers = handleActions<
       loading: false,
     }),
     [Types.REDUCER_SET_WATCH_STATUS]: (state, action) => {
-      console.log(action);
-
       const payload = action.payload;
       const repos = state.repos.map((r: any) => {
         const repo = { ...r };
@@ -57,6 +55,21 @@ export const searchResultsReducers = handleActions<
         repos,
       };
     },
+    [Types.USER_CLICK_SEARCH_RESULTS_PREV]: state => ({
+      ...state,
+      loading: true,
+    }),
+    [Types.USER_CLICK_SEARCH_RESULTS_NEXT]: state => ({
+      ...state,
+      loading: true,
+    }),
+    [Types.REDUCER_SET_SEARCH_RESULTS_PAGENATION]: (state, action) => ({
+      ...state,
+      pagenation: {
+        ...state.pagenation,
+        ...action.payload,
+      },
+    }),
   },
   initialState,
 );

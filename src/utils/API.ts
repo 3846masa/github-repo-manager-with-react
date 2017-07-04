@@ -8,7 +8,10 @@ export async function fetchSubscriptions() {
 
 export async function searchRepositories() {
   // mock
-  return mockSearchResult.items;
+  return {
+    items: mockSearchResult.items,
+    lastPage: 10,
+  };
 }
 
 export async function setWatchState() {
