@@ -45,7 +45,7 @@ export const searchResultsReducers = handleActions<
       const repos = state.repos.map((r: any) => {
         const repo = { ...r };
         if (repo.id === payload.id) {
-          repo.isSubscripted = payload.isSubscripted;
+          repo.isSubscribed = payload.isSubscribed;
         }
         return repo;
       });

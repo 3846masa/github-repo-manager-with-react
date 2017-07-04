@@ -29,7 +29,7 @@ export function* initialize() {
   const repos = yield call(API.fetchSubscriptions);
   const reposWithProps = repos.map((r: any) => ({
     ...r,
-    isSubscripted: true,
+    isSubscribed: true,
   }));
   yield put(Actions.setSubscriptions(reposWithProps));
 }
@@ -51,10 +51,10 @@ export function* searchRepos(action: any) {
   const { lastPage, items: repos } = yield call(API.searchRepositories, query);
 
   const reposWithProps = repos.map((r: any) => {
-    const isSubscripted = subscriptions.some((s: any) => s.id === r.id);
+    const isSubscribed = subscriptions.some((s: any) => s.id === r.id);
     return {
       ...r,
-      isSubscripted,
+      isSubscribed,
     };
   });
 
@@ -98,7 +98,7 @@ export function* changeWatchStatus(action: any) {
   yield put(
     Actions.setWatchStatus({
       ...payload,
-      isSubscripted: 'unknown',
+      isSubscribed: 'unknown',
     }),
   );
   yield call(API.setWatchState, { ...action.payload });
@@ -108,7 +108,7 @@ export function* changeWatchStatus(action: any) {
     }),
   );
 
-  if (payload.isSubscripted === true) {
+  if (payload.isSubscribed === true) {
     const repo = (yield select(getSearchResults)).find(
       (r: any) => r.id === payload.id,
     );

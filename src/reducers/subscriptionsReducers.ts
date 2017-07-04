@@ -47,11 +47,11 @@ export const subscriptionsReducers = handleActions<
         .map((r: any) => {
           const repo = { ...r };
           if (repo.id === payload.id) {
-            repo.isSubscripted = payload.isSubscripted;
+            repo.isSubscribed = payload.isSubscribed;
           }
           return repo;
         })
-        .filter((r: any) => r.isSubscripted !== false);
+        .filter((r: any) => r.isSubscribed !== false);
 
       return {
         ...state,

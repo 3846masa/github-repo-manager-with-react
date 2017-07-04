@@ -5,7 +5,7 @@ import { SearchQueryPayload } from '~/reducers/searchQueryReducers';
 export interface ChangeStatusQuery {
   id: number;
   full_name: string;
-  isSubscripted: boolean | 'unknown';
+  isSubscribed: boolean | 'unknown';
 }
 
 export const launchApp = createAction(Types.SYSTEM_LAUNCH_APP);

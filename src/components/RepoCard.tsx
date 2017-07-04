@@ -16,7 +16,7 @@ export interface RepoCardProps {
     login: string;
     html_url: string;
   };
-  isSubscripted: boolean | 'unknown';
+  isSubscribed: boolean | 'unknown';
   actions: typeof Actions;
 }
 
@@ -26,7 +26,7 @@ export class RepoCard extends React.Component<RepoCardProps, undefined> {
     this.props.actions.changeWatchStatus({
       id: this.props.id,
       full_name: this.props.full_name,
-      isSubscripted: !this.props.isSubscripted,
+      isSubscribed: !this.props.isSubscribed,
     });
   }
 
@@ -71,7 +71,7 @@ export class RepoCard extends React.Component<RepoCardProps, undefined> {
         <Card.Content extra>
           <WatchButton
             onClick={this.handleClick}
-            isWatched={this.props.isSubscripted}
+            isWatched={this.props.isSubscribed}
           />
         </Card.Content>
       </Card>
