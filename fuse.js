@@ -6,6 +6,7 @@ const {
   TypeScriptHelpers,
   WebIndexPlugin,
   UglifyESPlugin,
+  EnvPlugin,
 } = require('fuse-box');
 const isProduction = process.env['NODE_ENV'] === 'production';
 
@@ -16,6 +17,9 @@ const fuse = FuseBox.init({
   plugins: [
     TypeScriptHelpers(),
     JSONPlugin(),
+    EnvPlugin({
+      GITHUB_TOKEN: process.env['GITHUB_TOKEN'],
+    }),
     [
       CSSModules({
         useDefault: false,
