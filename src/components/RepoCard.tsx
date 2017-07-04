@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Icon, Card, Button, Label } from 'semantic-ui-react';
+import { Card, Label } from 'semantic-ui-react';
+
+import { WatchButton } from '~/components/WatchButton';
 
 export interface RepoCardProps {
   id: number;
@@ -11,6 +13,8 @@ export interface RepoCardProps {
     login: string;
     html_url: string;
   };
+  isWatched: boolean;
+  progressing: boolean;
 }
 
 export class RepoCard extends React.Component<RepoCardProps, undefined> {
@@ -36,10 +40,10 @@ export class RepoCard extends React.Component<RepoCardProps, undefined> {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Button fluid color="blue">
-            <Icon name="eye" />
-            Watch
-          </Button>
+          <WatchButton
+            isWatched={this.props.isWatched}
+            progressing={this.props.progressing}
+          />
         </Card.Content>
       </Card>
     );
