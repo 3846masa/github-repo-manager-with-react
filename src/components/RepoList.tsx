@@ -12,10 +12,8 @@ export interface RepoListProps {
 export class RepoList extends React.Component<RepoListProps, undefined> {
   render() {
     return (
-      <Card.Group
-        itemsPerRow={(this.props.itemsPerRow as any) || 1}
+      <div
         style={{
-          margin: '0',
           overflowX: 'hidden',
           overflowY: 'scroll',
           position: 'absolute',
@@ -25,10 +23,15 @@ export class RepoList extends React.Component<RepoListProps, undefined> {
           left: '0',
         }}
       >
-        {this.props.repos.map(repo =>
-          <RepoCard key={repo.id} actions={this.props.actions} {...repo} />,
-        )}
-      </Card.Group>
+        <Card.Group
+          itemsPerRow={(this.props.itemsPerRow as any) || 1}
+          style={{ margin: '0' }}
+        >
+          {this.props.repos.map(repo =>
+            <RepoCard key={repo.id} actions={this.props.actions} {...repo} />,
+          )}
+        </Card.Group>
+      </div>
     );
   }
 }
