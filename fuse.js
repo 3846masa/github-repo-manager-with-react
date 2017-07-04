@@ -39,7 +39,7 @@ const fuse = FuseBox.init({
   },
 });
 
-const app = fuse.bundle('app').instructions('> index.tsx');
+const app = fuse.bundle('app').target('browser').instructions('> index.tsx');
 
 if (!isProduction) {
   fuse.dev({
