@@ -13,8 +13,7 @@ export interface RepoCardProps {
     login: string;
     html_url: string;
   };
-  isWatched: boolean;
-  progressing: boolean;
+  isSubscripted: boolean | 'unknown';
 }
 
 export class RepoCard extends React.Component<RepoCardProps, undefined> {
@@ -40,10 +39,7 @@ export class RepoCard extends React.Component<RepoCardProps, undefined> {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <WatchButton
-            isWatched={this.props.isWatched}
-            progressing={this.props.progressing}
-          />
+          <WatchButton isWatched={this.props.isSubscripted} />
         </Card.Content>
       </Card>
     );

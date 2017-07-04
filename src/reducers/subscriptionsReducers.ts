@@ -25,4 +25,17 @@ const initialState: SubscriptionsState = {
 export const subscriptionsReducers = handleActions<
   SubscriptionsState,
   SubscriptionsPayload
->({}, initialState);
+>(
+  {
+    [Types.SYSTEM_LAUNCH_APP]: state => ({
+      ...state,
+      loading: true,
+    }),
+    [Types.REDUCER_SET_SUBSCRIPTION]: (state, action) => ({
+      ...state,
+      repos: [...action.payload],
+      loading: false,
+    }),
+  },
+  initialState,
+);
