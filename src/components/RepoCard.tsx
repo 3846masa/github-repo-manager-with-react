@@ -34,20 +34,37 @@ export class RepoCard extends React.Component<RepoCardProps, undefined> {
     return (
       <Card key={this.props.id}>
         <Card.Content>
+          <Label attached="top">
+            <p style={{ textAlign: 'right', margin: '0' }}>
+              {this.props.language || 'None'}
+            </p>
+          </Label>
           <Card.Header>
-            <Label attached="top right">
-              {this.props.language}
-            </Label>
-            <a href={this.props.html_url} style={{ color: 'inherit' }}>
+            <a
+              href={this.props.html_url}
+              target="_blank"
+              style={{ color: 'inherit', wordBreak: 'break-all' }}
+            >
               {this.props.name}
             </a>
           </Card.Header>
           <Card.Meta>
-            <a href={this.props.owner.html_url} style={{ color: 'inherit' }}>
+            <a
+              href={this.props.owner.html_url}
+              target="_blank"
+              style={{ color: 'inherit', wordBreak: 'break-all' }}
+            >
               @{this.props.owner.login}
             </a>
           </Card.Meta>
-          <Card.Description style={{ wordBreak: 'break-all' }}>
+          <Card.Description
+            style={{
+              maxHeight: '85px',
+              overflowX: 'hidden',
+              overflowY: 'auto',
+              wordBreak: 'break-all',
+            }}
+          >
             {this.props.description}
           </Card.Description>
         </Card.Content>
