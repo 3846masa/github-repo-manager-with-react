@@ -4,17 +4,20 @@ import {
   SearchResultsState,
 } from './searchResultsReducers';
 import { searchQueryReducers, SearchQueryState } from './searchQueryReducers';
-import { watchedListReducers, WatchedListState } from './watchedListReducers';
+import {
+  subscriptionsReducers,
+  SubscriptionsState,
+} from './subscriptionsReducers';
 export { Action };
 
 export interface RootState {
   searchResults: SearchResultsState;
   searchQuery: SearchQueryState;
-  subscriptions: WatchedListState;
+  subscriptions: SubscriptionsState;
 }
 
 export const rootReducer = combineReducers<RootState>({
   searchResults: searchResultsReducers,
   searchQuery: searchQueryReducers,
-  subscriptions: watchedListReducers,
+  subscriptions: subscriptionsReducers,
 });

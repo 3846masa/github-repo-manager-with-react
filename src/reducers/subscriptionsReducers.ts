@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import * as Types from '~/actions/actionTypes';
 
-export interface WatchedListState {
+export interface SubscriptionsState {
   pagenation: {
     isFirstPage: boolean;
     isLastPage: boolean;
@@ -10,9 +10,9 @@ export interface WatchedListState {
   repos: any[];
   loading: boolean;
 }
-type WatchedListPayload = any;
+type SubscriptionsPayload = any;
 
-const initialState: WatchedListState = {
+const initialState: SubscriptionsState = {
   pagenation: {
     isFirstPage: true,
     isLastPage: true,
@@ -22,7 +22,7 @@ const initialState: WatchedListState = {
   loading: false,
 };
 
-export const watchedListReducers = handleActions<
-  WatchedListState,
-  WatchedListPayload
+export const subscriptionsReducers = handleActions<
+  SubscriptionsState,
+  SubscriptionsPayload
 >({}, initialState);
