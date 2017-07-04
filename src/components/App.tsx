@@ -4,15 +4,13 @@ import {
   Accordion,
   Icon,
   Form,
-  Card,
   Button,
   Segment,
   Header,
-  Label,
   Dimmer,
   Loader,
 } from 'semantic-ui-react';
-import { RepoCard } from '~/components/RepoCard';
+import { RepoList } from '~/components/RepoList';
 import { Pagenation } from '~/components/Pagenation';
 
 import * as mockResult from '~/mocks/searchResult.json';
@@ -131,7 +129,8 @@ export class App extends React.Component<{}, AppState> {
     };
   }
 
-  getSubscriptonsInPage(page: number) {
+  getSubscriptonsInPage() {
+    const page = this.state.subscriptions.pagenation.page;
     return this.state.subscriptions.repos.slice((page - 1) * 30, page * 30);
   }
 
@@ -175,23 +174,7 @@ export class App extends React.Component<{}, AppState> {
             <Dimmer inverted active={this.state.loading.search}>
               <Loader inverted>Loading...</Loader>
             </Dimmer>
-            <Card.Group
-              itemsPerRow="3"
-              style={{
-                margin: '0',
-                overflowX: 'hidden',
-                overflowY: 'scroll',
-                position: 'absolute',
-                top: '0',
-                right: '0',
-                bottom: '0',
-                left: '0',
-              }}
-            >
-              {this.state.results.repos.map(repo =>
-                <RepoCard key={repo.id} {...repo} />,
-              )}
-            </Card.Group>
+            <RepoList itemsPerRow={3} repos={this.state.results.repos} />
           </Segment>
           <Segment vertical style={{ flexGrow: '0' }}>
             <Pagenation {...this.state.results.pagenation} />
@@ -207,15 +190,8 @@ export class App extends React.Component<{}, AppState> {
           <Segment vertical style={{ flexGrow: '0' }}>
             <Header as="h2">Watched repositories</Header>
           </Segment>
-          <Segment
-            vertical
-            style={{ overflowX: 'hidden', overflowY: 'scroll' }}
-          >
-            <Card.Group itemsPerRow="1" style={{ margin: '0' }}>
-              {this.getSubscriptonsInPage(
-                this.state.subscriptions.pagenation.page,
-              ).map(repo => <RepoCard key={repo.id} {...repo} />)}
-            </Card.Group>
+          <Segment vertical>
+            <RepoList itemsPerRow={1} repos={this.getSubscriptonsInPage()} />
           </Segment>
           <Segment vertical textAlign="center" style={{ flexGrow: '0' }}>
             <Pagenation {...this.state.subscriptions.pagenation} />
