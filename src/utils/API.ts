@@ -1,8 +1,6 @@
 import Axios from 'axios';
 import parseLinkHeader = require('parse-link-header');
 
-import * as mockSearchResult from '~/mocks/searchResult.json';
-
 const axios = Axios.create({
   baseURL: 'https://api.github.com/',
   headers: {
@@ -24,18 +22,39 @@ export async function fetchSubscriptions() {
     subscriptions.push(...data);
 
     const link = parseLinkHeader(headers['link']);
-    if (!link.last || parseInt(link.last.page, 10) === page) {
+    if (!link || !link.last || parseInt(link.last.page, 10) === page) {
       break;
     }
   }
   return subscriptions;
 }
 
-export async function searchRepositories() {
-  // mock
+export async function searchRepositories(query: any) {
+  const queryText = query.language
+    ? `${query.query} language:"${query.language}"`
+    : query.query;
+
+  const params = {
+    sort: query.sort,
+    q: queryText.replace(/^\s*|\s*$/g, ''),
+    page: query.page,
+  };
+
+  if (!params.q) {
+    return {
+      items: [],
+      lastPage: 1,
+    };
+  }
+
+  const { data, headers } = await axios.get('/search/repositories', {
+    params,
+  });
+  const link = parseLinkHeader(headers['link']);
+
   return {
-    items: mockSearchResult.items,
-    lastPage: 10,
+    items: data.items,
+    lastPage: link && link.last ? parseInt(link.last.page, 10) : query.page,
   };
 }
 
