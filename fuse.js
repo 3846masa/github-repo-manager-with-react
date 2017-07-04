@@ -30,6 +30,9 @@ const fuse = FuseBox.init({
     }),
     isProduction && UglifyESPlugin(),
   ],
+  alias: {
+    'redux-saga/effects': 'redux-saga/lib/effects',
+  },
 });
 
 const app = fuse.bundle('app').instructions('> index.tsx');
