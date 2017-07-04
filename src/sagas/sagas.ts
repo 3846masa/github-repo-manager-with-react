@@ -118,7 +118,7 @@ export function* changeWatchStatus(action: any) {
 
 export function* saga() {
   yield takeLatest(Types.SYSTEM_LAUNCH_APP, initialize);
-  yield throttle(2000, Types.USER_CHANGE_QUERY, searchReposFromQuery);
+  yield throttle(1000, Types.USER_CHANGE_QUERY, searchReposFromQuery);
   yield takeLatest(Types.USER_CLICK_SEARCH_RESULTS_PREV, searchReposPrev);
   yield takeLatest(Types.USER_CLICK_SEARCH_RESULTS_NEXT, searchReposNext);
   yield takeEvery(Types.USER_CHANGE_WATCH_STATUS, changeWatchStatus);
