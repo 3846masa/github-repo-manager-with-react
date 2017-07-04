@@ -14,5 +14,5 @@ declare module '*.css' {
 
 // for redux devtools extension
 interface Window {
-  devToolsExtension?(): (args?: any) => any;
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?(args?: any): any;
 }
