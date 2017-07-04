@@ -3,6 +3,8 @@ import { Grid, Button, Segment, Dimmer, Loader } from 'semantic-ui-react';
 import { RepoList } from '~/components/RepoList';
 import { Pagenation } from '~/components/Pagenation';
 
+import * as Actions from '~/actions/actions';
+
 export interface SearchResultsProps {
   pagenation: {
     isFirstPage: boolean;
@@ -12,6 +14,7 @@ export interface SearchResultsProps {
   repos: any[];
   loading: boolean;
   widthSize: number;
+  actions: typeof Actions;
 }
 
 export class SearchResults extends React.Component<
@@ -26,6 +29,7 @@ export class SearchResults extends React.Component<
         </Dimmer>
         <Segment vertical>
           <RepoList
+            actions={this.props.actions}
             itemsPerRow={this.props.widthSize}
             repos={this.props.repos}
           />

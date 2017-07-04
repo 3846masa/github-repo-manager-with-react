@@ -29,7 +29,11 @@ class AppContainer extends React.Component<AppProps, undefined> {
           actions={this.props.actions}
           {...searchResults}
         />
-        <WatchedReposColumn widthSize={1} {...subscriptions} />
+        <WatchedReposColumn
+          actions={this.props.actions}
+          widthSize={1}
+          {...subscriptions}
+        />
       </Grid>
     );
   }

@@ -40,6 +40,23 @@ export const searchResultsReducers = handleActions<
       repos: [...action.payload],
       loading: false,
     }),
+    [Types.REDUCER_SET_WATCH_STATUS]: (state, action) => {
+      console.log(action);
+
+      const payload = action.payload;
+      const repos = state.repos.map((r: any) => {
+        const repo = { ...r };
+        if (repo.id === payload.id) {
+          repo.isSubscripted = payload.isSubscripted;
+        }
+        return repo;
+      });
+
+      return {
+        ...state,
+        repos,
+      };
+    },
   },
   initialState,
 );

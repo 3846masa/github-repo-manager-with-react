@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { Card, Label } from 'semantic-ui-react';
+import autobind from 'autobind-decorator';
 
 import { WatchButton } from '~/components/WatchButton';
+import * as Actions from '~/actions/actions';
 
 export interface RepoCardProps {
   id: number;
   name: string;
+  full_name: string;
   html_url: string;
   language: string;
   description: string;
@@ -14,9 +17,19 @@ export interface RepoCardProps {
     html_url: string;
   };
   isSubscripted: boolean | 'unknown';
+  actions: typeof Actions;
 }
 
 export class RepoCard extends React.Component<RepoCardProps, undefined> {
+  @autobind
+  handleClick() {
+    this.props.actions.changeWatchStatus({
+      id: this.props.id,
+      full_name: this.props.full_name,
+      isSubscripted: !this.props.isSubscripted,
+    });
+  }
+
   render() {
     return (
       <Card key={this.props.id}>
@@ -39,7 +52,10 @@ export class RepoCard extends React.Component<RepoCardProps, undefined> {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <WatchButton isWatched={this.props.isSubscripted} />
+          <WatchButton
+            onClick={this.handleClick}
+            isWatched={this.props.isSubscripted}
+          />
         </Card.Content>
       </Card>
     );

@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Card } from 'semantic-ui-react';
 import { RepoCard } from '~/components/RepoCard';
+import * as Actions from '~/actions/actions';
 
 export interface RepoListProps {
   repos: any[];
   itemsPerRow?: number;
+  actions: typeof Actions;
 }
 
 export class RepoList extends React.Component<RepoListProps, undefined> {
@@ -23,7 +25,9 @@ export class RepoList extends React.Component<RepoListProps, undefined> {
           left: '0',
         }}
       >
-        {this.props.repos.map(repo => <RepoCard key={repo.id} {...repo} />)}
+        {this.props.repos.map(repo =>
+          <RepoCard key={repo.id} actions={this.props.actions} {...repo} />,
+        )}
       </Card.Group>
     );
   }

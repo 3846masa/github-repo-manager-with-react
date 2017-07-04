@@ -10,3 +10,7 @@ export async function searchRepositories() {
   // mock
   return mockSearchResult.items;
 }
+
+export async function setWatchState() {
+  return;
+}

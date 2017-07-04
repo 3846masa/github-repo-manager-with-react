@@ -27,7 +27,7 @@ export class SearchColumn extends React.Component<
           <SearchForm actions={this.props.actions} />
         </Segment>
         <Grid style={{ zIndex: '0' }}>
-          <SearchResults {...this.props} />
+          <SearchResults actions={this.props.actions} {...this.props} />
         </Grid>
       </Grid.Column>
     );

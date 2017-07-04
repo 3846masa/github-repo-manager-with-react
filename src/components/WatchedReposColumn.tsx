@@ -3,6 +3,8 @@ import { Grid, Header, Segment } from 'semantic-ui-react';
 import { RepoList } from '~/components/RepoList';
 import { Pagenation } from '~/components/Pagenation';
 
+import * as Actions from '~/actions/actions';
+
 export interface WatchedReposColumnProps {
   pagenation: {
     isFirstPage: boolean;
@@ -11,6 +13,7 @@ export interface WatchedReposColumnProps {
   };
   repos: any[];
   widthSize: number;
+  actions: typeof Actions;
 }
 
 export class WatchedReposColumn extends React.Component<
@@ -30,6 +33,7 @@ export class WatchedReposColumn extends React.Component<
         </Segment>
         <Segment vertical>
           <RepoList
+            actions={this.props.actions}
             itemsPerRow={this.props.widthSize}
             repos={this.getSubscriptonsInPage()}
           />
