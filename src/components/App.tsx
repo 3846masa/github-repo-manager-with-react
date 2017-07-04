@@ -13,13 +13,28 @@ import {
   Loader,
 } from 'semantic-ui-react';
 import { RepoCard } from '~/components/RepoCard';
+import { Pagenation } from '~/components/Pagenation';
 
 import * as mockResult from '~/mocks/searchResult.json';
 import * as mockSubscriptions from '~/mocks/subscriptions.json';
 
 export interface AppState {
-  results: any[];
-  subscriptions: any[];
+  results: {
+    pagenation: {
+      isFirstPage: boolean;
+      isLastPage: boolean;
+      page: number;
+    };
+    repos: any[];
+  };
+  subscriptions: {
+    pagenation: {
+      isFirstPage: boolean;
+      isLastPage: boolean;
+      page: number;
+    };
+    repos: any[];
+  };
   loading: {
     search: boolean;
     initialize: boolean;
@@ -30,13 +45,31 @@ export class App extends React.Component<{}, AppState> {
   constructor() {
     super();
     this.state = {
-      results: mockResult.items,
-      subscriptions: mockSubscriptions,
+      results: {
+        pagenation: {
+          isFirstPage: true,
+          isLastPage: false,
+          page: 1,
+        },
+        repos: mockResult.items,
+      },
+      subscriptions: {
+        pagenation: {
+          isFirstPage: true,
+          isLastPage: false,
+          page: 1,
+        },
+        repos: mockSubscriptions,
+      },
       loading: {
         search: false,
         initialize: false,
       },
     };
+  }
+
+  getSubscriptonsInPage(page) {
+    return this.state.subscriptions.repos.slice((page - 1) * 30, page * 30);
   }
 
   render() {
@@ -152,23 +185,13 @@ export class App extends React.Component<{}, AppState> {
                 left: '0',
               }}
             >
-              {this.state.results.map(repo =>
+              {this.state.results.repos.map(repo =>
                 <RepoCard key={repo.id} {...repo} />,
               )}
             </Card.Group>
           </Segment>
           <Segment vertical style={{ flexGrow: '0' }}>
-            <Button.Group floated="left">
-              <Button>
-                <Icon name="caret left" />
-                Prev
-              </Button>
-              <Label basic>Page 1</Label>
-              <Button>
-                Next
-                <Icon name="caret right" />
-              </Button>
-            </Button.Group>
+            <Pagenation {...this.state.results.pagenation} />
             <Button floated="right" color="red">
               Unwatch all in this page
             </Button>
@@ -186,23 +209,13 @@ export class App extends React.Component<{}, AppState> {
             style={{ overflowX: 'hidden', overflowY: 'scroll' }}
           >
             <Card.Group itemsPerRow="1" style={{ margin: '0' }}>
-              {this.state.subscriptions.map(repo =>
-                <RepoCard key={repo.id} {...repo} />,
-              )}
+              {this.getSubscriptonsInPage(
+                this.state.subscriptions.pagenation.page,
+              ).map(repo => <RepoCard key={repo.id} {...repo} />)}
             </Card.Group>
           </Segment>
           <Segment vertical textAlign="center" style={{ flexGrow: '0' }}>
-            <Button.Group>
-              <Button>
-                <Icon name="caret left" />
-                Prev
-              </Button>
-              <Label basic>Page 1</Label>
-              <Button>
-                Next
-                <Icon name="caret right" />
-              </Button>
-            </Button.Group>
+            <Pagenation {...this.state.subscriptions.pagenation} />
           </Segment>
         </Grid.Column>
       </Grid>
