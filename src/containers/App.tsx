@@ -4,7 +4,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import * as Actions from '~/actions/actions';
-import { RootState } from '~/reducers';
+import { RootState } from '~/reducers/reducers';
 import { SearchColumn } from '~/components/SearchColumn';
 import { WatchedReposColumn } from '~/components/WatchedReposColumn';
 
