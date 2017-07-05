@@ -113,5 +113,5 @@ export async function setWatchState({
       return { error: new Error((data && data.message) || statusText) };
     }
   }
-  return;
+  return {};
 }
