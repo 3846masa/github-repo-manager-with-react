@@ -35,7 +35,13 @@ export const getSearchResultsPage = (state: any) =>
   state.searchResults.pagenation.page;
 
 export function* initialize() {
-  const repos = yield call(API.fetchSubscriptions);
+  const { error, repos } = yield call(API.fetchSubscriptions);
+
+  if (error) {
+    yield put(Actions.causeError(error));
+    return;
+  }
+
   const reposWithProps = repos.map((r: any) => ({
     ...r,
     isSubscribed: true,
@@ -57,7 +63,15 @@ export function* searchRepos(action: any) {
   };
   const subscriptions = yield select(getSubscriptions);
 
-  const { lastPage, items: repos } = yield call(API.searchRepositories, query);
+  const { error, lastPage, items: repos } = yield call(
+    API.searchRepositories,
+    query,
+  );
+
+  if (error) {
+    yield put(Actions.causeError(error));
+    return;
+  }
 
   const reposWithProps = repos.map((r: any) => {
     const isSubscribed = subscriptions.some((s: any) => s.id === r.id);
@@ -111,10 +125,15 @@ export function* changeWatchStatus(action: any) {
     }),
   );
 
-  yield call(API.setWatchState, {
+  const { error } = yield call(API.setWatchState, {
     fullName: action.payload.full_name,
     isSubscribed: action.payload.isSubscribed,
   });
+
+  if (error) {
+    yield put(Actions.causeError(error));
+    return;
+  }
 
   yield put(
     Actions.setWatchStatus({

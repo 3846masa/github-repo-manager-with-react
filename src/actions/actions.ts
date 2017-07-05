@@ -10,6 +10,8 @@ export interface ChangeStatusQuery {
 
 export const launchApp = createAction(Types.SYSTEM_LAUNCH_APP);
 
+export const confirmErrorModal = createAction(Types.USER_CONFIRM_ERROR_MODAL);
+
 export const clickAllWatchInPage = createAction(
   Types.USER_CLICK_ALL_WATCH_IN_PAGE,
 );
@@ -80,4 +82,9 @@ export const startChangingAllWatchStatus = createAction(
 );
 export const doneChangingAllWatchStatus = createAction(
   Types.REDUCER_DONE_CHANGING_ALL_WATCH_STATUS,
+);
+
+export const causeError = createAction<Error, Error>(
+  Types.REDUCER_CAUSE_ERROR,
+  error => error,
 );

@@ -7,6 +7,7 @@ import * as Actions from '~/actions/actions';
 import { RootState } from '~/reducers/reducers';
 import { SearchColumn } from '~/components/SearchColumn';
 import { WatchedReposColumn } from '~/components/WatchedReposColumn';
+import { ErrorModal } from '~/components/ErrorModal';
 
 export interface AppProps extends RootState {
   actions: typeof Actions;
@@ -18,15 +19,16 @@ class AppContainer extends React.Component<AppProps, undefined> {
   }
 
   render() {
-    const { subscriptions, searchResults } = this.props;
+    const { subscriptions, searchResults, error } = this.props;
     return (
       <Grid stretched divided style={{ margin: '0', height: '100vh' }}>
+        <ErrorModal actions={this.props.actions} error={error} />
         <Dimmer active={subscriptions.loading}>
           <Loader>Initialize...</Loader>
         </Dimmer>
         <SearchColumn
-          widthSize={3}
           actions={this.props.actions}
+          widthSize={3}
           {...searchResults}
         />
         <WatchedReposColumn
