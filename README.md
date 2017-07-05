@@ -1,5 +1,7 @@
 # github-repo-manager-with-react
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/3846masa/github-repo-manager-with-react.svg)](https://greenkeeper.io/)
+
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 > Search GitHub repos and Set repos to watch/unwatch.
