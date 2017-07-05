@@ -32,6 +32,7 @@
     "cz-conventional-changelog": "^2.0.0",
     "fixpack": "^2.3.1",
     "fuse-box": "^2.2.0",
+    "http-server": "^0.10.0",
     "husky": "^0.13.4",
     "lint-staged": "^4.0.0",
     "npm-run-all": "^4.0.2",
@@ -73,6 +74,7 @@
     "prebuild": "npm-run-all clean:deep lint",
     "precommit": "lint-staged",
     "prewatch": "npm-run-all clean",
+    "serve": "http-server dist -c -1 -p 8000 -o",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "cross-env NODE_ENV=\"development\" node ./fuse.js"
   }
